@@ -28,12 +28,12 @@ const HeroSection = () => {
         </div>
 
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 opacity-0 animate-fade-in-up animate-delay-100">
-          <span className="gradient-text">Your Name</span>
+          <span className="gradient-text">Harsh Sharma</span>
         </h1>
 
         <div className="opacity-0 animate-fade-in-up animate-delay-200">
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Full Stack Developer & UI/UX Designer crafting beautiful digital experiences
+            UI/UX Designer & Full Stack Developer with 2+ years of experience in modern web technologies
           </p>
         </div>
 
@@ -58,7 +58,7 @@ const HeroSection = () => {
         {/* Social Links */}
         <div className="flex justify-center gap-6 opacity-0 animate-fade-in-up animate-delay-400">
           <a
-            href="https://github.com"
+            href="https://github.com" // Add your GitHub username here
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors duration-300 hover-lift"
@@ -66,7 +66,7 @@ const HeroSection = () => {
             <Github size={28} />
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/harsh-sharma-282746274"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors duration-300 hover-lift"
@@ -74,7 +74,7 @@ const HeroSection = () => {
             <Linkedin size={28} />
           </a>
           <a
-            href="mailto:your@email.com"
+            href="mailto:hs6860504@gmail.com"
             className="text-muted-foreground hover:text-primary transition-colors duration-300 hover-lift"
           >
             <Mail size={28} />

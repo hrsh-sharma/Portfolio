@@ -42,31 +42,30 @@ const Hero = () => {
                         <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/10 via-primary/15 to-accent-foreground/10 border border-primary/20 backdrop-blur-sm mb-2">
                             <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse shadow-lg shadow-primary/50" />
                             <span className="text-sm font-medium text-primary font-display">
-                                UI/UX Designer & Frontend Engineer
+                                UI/UX Designer & Web Developer
                             </span>
                         </div>
 
                         {/* Enhanced Main Headline */}
-                        <h1 
+                        <h1
                             className="font-bogle font-bold uppercase text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight sm:leading-[50px] md:leading-[60px] lg:leading-[70px] tracking-tight sm:tracking-normal md:tracking-wide"
                             style={{
                                 wordSpacing: 'clamp(4px, 2vw, 14px)',
                                 letterSpacing: 'clamp(2px, 1vw, 6px)'
                             }}
                         >
-                            DESIGNING
-                            INTUITIVE<br className="hidden sm:block" />
-                            <span className="bg-gradient-to-r from-primary via-primary to-accent-foreground bg-clip-text text-transparent">DIGITAL </span>
-                            <span className="bg-gradient-to-r from-primary via-primary to-accent-foreground bg-clip-text text-transparent">EXPERIENCES </span>
-                            FOR
+                            UI/UX DESIGNER &
+                            <span className="bg-gradient-to-r from-primary via-primary to-accent-foreground bg-clip-text text-transparent">WEB DEVELOPER </span>
+                            WITH
+                            EXPERIENCE IN
                             MODERN
-                            PRODUCTS.
+                            TECHNOLOGIES.
                         </h1>
 
                         {/* Enhanced Supporting Description */}
                         <p className="text-base md:text-lg text-foreground/70 leading-relaxed max-w-xl font-sans mt-6">
-                            I'm <span className="font-semibold text-foreground">Harsh</span>, a UI/UX Designer and Frontend Developer with experience
-                            building scalable web products using React and Angular.
+                            I'm <span className="font-semibold text-foreground">Harsh Sharma</span>, a passionate UI/UX Designer and Web Developer
+                            specializing in React, Angular, WordPress, and E-commerce platforms.
                         </p>
 
                         {/* Enhanced CTA Buttons */}
