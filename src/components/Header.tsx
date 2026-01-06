@@ -1,6 +1,7 @@
     import { useState, useEffect } from "react";
 import { Menu, X, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import cvFile from "@/assets/Harsh Sharma.pdf";
 
 const navLinks = [
     { name: "About", href: "#about" },
@@ -51,6 +52,15 @@ const Header = () => {
         setIsMobileMenuOpen(false);
         const element = document.querySelector(href);
         element?.scrollIntoView({ behavior: "smooth" });
+    };
+
+    const handleDownloadCV = () => {
+        const link = document.createElement('a');
+        link.href = cvFile;
+        link.download = 'Harsh_Sharma_CV.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     };
 
     return (
@@ -130,10 +140,7 @@ const Header = () => {
                     <div className="hidden md:block">
                         <Button
                             className="group relative gap-2 px-6 py-2.5 font-medium text-sm bg-gradient-to-r from-primary via-primary to-accent-foreground hover:from-primary/90 hover:via-primary/90 hover:to-accent-foreground/90 text-white border-0 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
-                            onClick={() => {
-                                // Add your CV download logic here
-                                console.log("Download CV clicked");
-                            }}
+                            onClick={handleDownloadCV}
                         >
                             {/* Shine effect on hover */}
                             <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
@@ -258,7 +265,7 @@ const Header = () => {
                         }}
                         onClick={() => {
                             setIsMobileMenuOpen(false);
-                            console.log("Download CV clicked");
+                            handleDownloadCV();
                         }}
                     >
                         {/* Shine effect */}

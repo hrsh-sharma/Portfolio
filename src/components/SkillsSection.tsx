@@ -21,11 +21,12 @@ interface Skill {
   icon: ComponentType<{ className?: string }>;
   category: string;
   color: string;
+  specialty?: string; // For additional context like "UI/UX Design"
 }
 
 const skills: Skill[] = [
-  { name: "React", icon: Zap, category: "Frontend", color: "from-blue-400 to-cyan-400" },
-  { name: "Angular", icon: Code2, category: "Frontend", color: "from-red-400 to-pink-400" },
+  { name: "React", icon: Zap, category: "Frontend", color: "from-blue-400 to-cyan-400", specialty: "UI/UX Design" },
+  { name: "Angular", icon: Code2, category: "Frontend", color: "from-red-400 to-pink-400", specialty: "UI/UX Design" },
   { name: "HTML", icon: FileCode, category: "Frontend", color: "from-orange-400 to-red-400" },
   { name: "CSS", icon: Layers, category: "Frontend", color: "from-blue-400 to-indigo-400" },
   { name: "JS", icon: Sparkles, category: "Frontend", color: "from-yellow-400 to-orange-400" },
@@ -140,11 +141,11 @@ const SkillsSection = () => {
                       >
                         {/* Skill Card */}
                         <div className={`
-                          relative h-32 rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50
-                          p-5 flex flex-col items-center justify-center gap-3
+                          relative ${skill.specialty ? 'h-36' : 'h-32'} rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50
+                          p-5 flex flex-col items-center justify-center gap-2
                           transition-all duration-500 ease-out
-                          ${isHovered 
-                            ? 'scale-110 shadow-2xl border-primary/50 bg-gradient-to-br from-card to-card/80' 
+                          ${isHovered
+                            ? 'scale-110 shadow-2xl border-primary/50 bg-gradient-to-br from-card to-card/80'
                             : 'hover:scale-105 hover:shadow-lg hover:border-primary/30'
                           }
                           ${isVisible ? "animate-fade-in-up" : "opacity-0"}
@@ -176,6 +177,18 @@ const SkillsSection = () => {
                           `}>
                             {skill.name}
                           </span>
+
+                          {/* Specialty Badge */}
+                          {skill.specialty && (
+                            <span className={`
+                              relative z-10 text-xs text-muted-foreground text-center px-2 py-0.5
+                              bg-primary/10 rounded-full border border-primary/20
+                              transition-all duration-300
+                              ${isHovered ? 'bg-primary/20 border-primary/30 text-primary' : ''}
+                            `}>
+                              {skill.specialty}
+                            </span>
+                          )}
 
                           {/* Shine Effect */}
                           <div className={`

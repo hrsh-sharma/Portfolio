@@ -71,7 +71,7 @@ const ProjectsSection = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}>
-            Featured <span className="gradient-text">Projects</span>
+            My <span className="gradient-text">Work</span>
           </h2>
           <p className={`text-muted-foreground text-lg max-w-2xl mx-auto ${isVisible ? "animate-fade-in-up animate-delay-100" : "opacity-0"}`}>
             A showcase of my recent work and side projects
