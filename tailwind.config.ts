@@ -96,56 +96,23 @@ export default {
   		},
 		fontFamily: {
 			sans: [
+				'Space Grotesk',
 				'Inter',
-				'Poppins',
-				'DM Sans',
 				'ui-sans-serif',
 				'system-ui',
 				'-apple-system',
-				'BlinkMacSystemFont',
-				'Segoe UI',
-				'Roboto',
-				'Helvetica Neue',
-				'Arial',
-				'Noto Sans',
 				'sans-serif'
 			],
 			display: [
-				'Rubik',
-				'Titillium Web',
-				'Inter',
-				'Poppins',
+				'Outfit',
+				'Space Grotesk',
 				'ui-sans-serif',
 				'sans-serif'
-			],
-			bartle: [
-				'BBH Bartle',
-				'ui-sans-serif',
-				'sans-serif'
-			],
-			bogle: [
-				'BBH Bogle',
-				'ui-sans-serif',
-				'sans-serif'
-			],
-			serif: [
-				'Poppins',
-				'ui-serif',
-				'Georgia',
-				'Cambria',
-				'Times New Roman',
-				'Times',
-				'serif'
 			],
 			mono: [
-				'DM Sans',
+				'JetBrains Mono',
 				'ui-monospace',
 				'SFMono-Regular',
-				'Menlo',
-				'Monaco',
-				'Consolas',
-				'Liberation Mono',
-				'Courier New',
 				'monospace'
 			]
 		}

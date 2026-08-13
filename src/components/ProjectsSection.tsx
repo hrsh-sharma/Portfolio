@@ -1,43 +1,69 @@
 import { useEffect, useRef, useState } from "react";
 import { ExternalLink, Github } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import stylexioImage from "@/assets/stylexio.jpg";
 import newsImage from "@/assets/news.jpg";
 import agenticImage from "@/assets/agentic.jpg";
 import belloImage from "@/assets/bello.jpg";
+import aiinfoxImage from "@/assets/aiinfoxtech.png";
+import maniyamImage from "@/assets/maniyam.png";
+import mockintoImage from "@/assets/mockinto.png";
 
 const projects = [
   {
-    title: "E-Commerce Clothing Website",
-    description: "A modern and responsive e-commerce platform for fashion and clothing, featuring seamless shopping experience with product catalog, cart management, and secure checkout.",
-    tags: ["Angular", "TypeScript"],
+    title: "FashionCraft (Stylexio)",
+    description: "E-commerce clothing platform with responsive UI, product listings, and category management for an optimised shopping experience.",
+    tags: ["Angular", "TypeScript", "Tailwind CSS"],
     image: stylexioImage,
     github: "",
     live: "https://stylexio.in/",
   },
   {
-    title: "News Website",
-    description: "A dynamic news portal with auto-generated posts powered by Python backend, featuring automated content creation, categorization, and real-time updates.",
-    tags: ["WordPress", "Python"],
-    image: newsImage,
-    github: "",
-    live: "https://desimuchatlu.com/",
-  },
-  {
-    title: "Financial Guidance Tool",
-    description: "An AI-powered financial guidance platform that provides personalized financial insights, smart tools, and expert guidance to help users build wealth confidently.",
-    tags: ["React.js", "Bootstrap"],
+    title: "AgenticMoney (UK)",
+    description: "Financial guidance web app focused on clean UI, responsive dashboards, and user-friendly data presentation for a UK-based client.",
+    tags: ["React.js", "Bootstrap", "Node.js"],
     image: agenticImage,
     github: "",
     live: "https://agenticmoney.co.uk/",
   },
   {
-    title: "E-Commerce Shoe Website",
-    description: "A luxury e-commerce platform specializing in premium leather shoes, featuring elegant designs, seamless shopping experience, and secure checkout for footwear enthusiasts.",
-    tags: ["Shopify"],
+    title: "Mockinto",
+    description: "AI-powered mock interview platform with intuitive interview-flow UI/UX, real-time feedback dashboards, and candidate progress tracking.",
+    tags: ["Angular", "TypeScript", "Figma"],
+    image: mockintoImage,
+    github: "",
+    live: "https://mockinto.com",
+  },
+  {
+    title: "Maniyam",
+    description: "Enterprise HRMS & CRMS platform — contributed UI design improvements and usability enhancements for HR and CRM modules.",
+    tags: ["Next.js", "Tailwind CSS", "TypeScript"],
+    image: maniyamImage,
+    github: "",
+    live: "https://maniyam.com",
+  },
+  {
+    title: "AIInfoxTech",
+    description: "Training & education website with integrated n8n lead-capture automation, improving conversion workflows for the organisation.",
+    tags: ["React.js", "n8n", "Automation"],
+    image: aiinfoxImage,
+    github: "",
+    live: "https://aiinfoxtech.com",
+  },
+  {
+    title: "Bellorosso & PielCuero",
+    description: "Designed and customised two Shopify stores with premium branding, conversion-focused layouts, and optimised product/checkout pages.",
+    tags: ["Shopify", "Liquid", "CSS"],
     image: belloImage,
     github: "",
     live: "https://bellorosso.com/",
+  },
+  {
+    title: "DesiMuchatlu",
+    description: "News publishing website with SEO plugin configuration and automated content workflows for consistent publishing cadence.",
+    tags: ["WordPress", "Python", "SEO"],
+    image: newsImage,
+    github: "",
+    live: "https://desimuchatlu.com/",
   },
 ];
 
@@ -48,97 +74,80 @@ const ProjectsSection = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
       { threshold: 0.1 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section
-      id="projects"
-      ref={sectionRef}
-      className="py-24 bg-card"
-    >
+    <section id="projects" ref={sectionRef} className="py-16 bg-card/30">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}>
-            My <span className="gradient-text">Work</span>
+        <div className="text-center mb-12">
+          <h2 className={`text-4xl md:text-5xl font-bold mb-3 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}>
+            My <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Work</span>
           </h2>
           <p className={`text-muted-foreground text-lg max-w-2xl mx-auto ${isVisible ? "animate-fade-in-up animate-delay-100" : "opacity-0"}`}>
-            A showcase of my recent work and side projects
+            A showcase of my recent projects
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <div
+            <a
               key={project.title}
-              className={`group bg-background rounded-xl overflow-hidden border border-border hover-lift ${
-                isVisible ? "animate-scale-in" : "opacity-0"
+              href={project.live || "#"}
+              target={project.live ? "_blank" : undefined}
+              rel="noopener noreferrer"
+              className={`group block bg-background rounded-2xl overflow-hidden border border-border/60 hover:border-primary/40 transition-all duration-300 hover:shadow-[0_8px_30px_hsl(var(--primary)/0.12)] ${
+                isVisible ? "animate-fade-in-up" : "opacity-0"
               }`}
-              style={{ animationDelay: `${index * 150}ms` }}
+              style={{ animationDelay: `${index * 100}ms` }}
             >
-              {/* Project Image */}
-              <div className="relative h-56 overflow-hidden">
+              {/* Image with gradient overlay */}
+              <div className="relative h-48 overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                {/* Overlay Buttons */}
-                <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+
+                {/* Floating link button — shown on hover */}
+                <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   {project.github && project.github !== "#" && (
-                    <a
-                      href={project.github}
-                      className="p-2 bg-background/90 rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
-                    >
-                      <Github size={20} />
-                    </a>
+                    <span className="p-2 bg-background/80 backdrop-blur-sm rounded-full border border-border/50 text-foreground hover:text-primary">
+                      <Github size={16} />
+                    </span>
                   )}
-                  {project.live && project.live !== "#" && (
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 bg-background/90 rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
-                    >
-                      <ExternalLink size={20} />
-                    </a>
-                  )}
+                  <span className="p-2 bg-primary/90 text-white rounded-full shadow-md">
+                    <ExternalLink size={16} />
+                  </span>
                 </div>
               </div>
 
-              {/* Project Info */}
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+              {/* Info — always visible */}
+              <div className="p-5 pt-3">
+                <h3 className="text-lg font-bold text-foreground mb-1.5 group-hover:text-primary transition-colors duration-200">
                   {project.title}
                 </h3>
-                <p className="text-muted-foreground mb-4 line-clamp-2">
+                <p className="text-muted-foreground text-sm leading-relaxed mb-3 line-clamp-2">
                   {project.description}
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"
+                      className="px-2.5 py-1 bg-primary/10 text-primary/80 text-xs font-medium rounded-md"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>

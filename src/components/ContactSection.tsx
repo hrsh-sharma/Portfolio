@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Mail, Phone, Send, Linkedin } from "lucide-react";
+import { Mail, Phone, Send, Linkedin, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,7 +14,6 @@ const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    subject: '',
     message: ''
   });
 
@@ -38,27 +37,17 @@ const ContactSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Validation functions
   const validateField = (name: string, value: string): string => {
     switch (name) {
       case 'name':
-        if (!value.trim()) return 'Name is required';
-        if (value.trim().length < 2) return 'Name must be at least 2 characters';
-        if (!/^[a-zA-Z\s]+$/.test(value.trim())) return 'Name can only contain letters and spaces';
+        if (!value.trim()) return 'Required';
         break;
       case 'email':
-        if (!value.trim()) return 'Email is required';
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(value.trim())) return 'Please enter a valid email address';
-        break;
-      case 'subject':
-        if (!value.trim()) return 'Subject is required';
-        if (value.trim().length < 5) return 'Subject must be at least 5 characters';
+        if (!value.trim()) return 'Required';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())) return 'Invalid email';
         break;
       case 'message':
-        if (!value.trim()) return 'Message is required';
-        if (value.trim().length < 10) return 'Message must be at least 10 characters';
-        if (value.trim().length > 1000) return 'Message must be less than 1000 characters';
+        if (!value.trim()) return 'Required';
         break;
     }
     return '';
@@ -66,12 +55,10 @@ const ContactSection = () => {
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
-
     Object.keys(formData).forEach(key => {
       const error = validateField(key, formData[key as keyof typeof formData]);
       if (error) newErrors[key] = error;
     });
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -79,44 +66,25 @@ const ContactSection = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
-    }
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!validateForm()) {
-      toast({
-        title: "Validation Error",
-        description: "Please fix the errors in the form.",
-        variant: "destructive",
-      });
-      return;
-    }
-
+    if (!validateForm()) return;
     setIsSubmitting(true);
-
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
+      await new Promise(resolve => setTimeout(resolve, 1500));
       toast({
         title: "Message sent!",
         description: "Thank you for reaching out. I'll get back to you soon.",
       });
-
-      // Reset form
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ name: '', email: '', message: '' });
       setErrors({});
-
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again.",
+        description: "Failed to send message.",
         variant: "destructive",
       });
     } finally {
@@ -125,178 +93,127 @@ const ContactSection = () => {
   };
 
   return (
-    <section
-      id="contact"
-      ref={sectionRef}
-      className="py-24 bg-background"
-    >
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}>
-            Get In <span className="gradient-text">Touch</span>
-          </h2>
-          <p className={`text-muted-foreground text-lg max-w-2xl mx-auto ${isVisible ? "animate-fade-in-up animate-delay-100" : "opacity-0"}`}>
-            Have a project in mind? Let's work together to bring your ideas to life.
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
-          {/* Contact Info */}
-          <div className={`space-y-8 ${isVisible ? "animate-slide-in-left" : "opacity-0"}`}>
-            <div>
-              <h3 className="text-2xl font-semibold mb-6">Let's connect</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                I'm always open to discussing new projects, creative ideas, or opportunities 
-                to be part of your vision. Feel free to reach out!
+     <section id="contact" ref={sectionRef} className="py-16 bg-card/30 border-t border-border/50">
+        <div className="container mx-auto px-6 max-w-5xl">
+            <div className="text-center mb-10">
+              <h2 className={`text-3xl md:text-4xl font-bold mb-3 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}>
+                Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Talk</span>
+              </h2>
+              <p className={`text-muted-foreground text-base ${isVisible ? "animate-fade-in-up animate-delay-100" : "opacity-0"}`}>
+                I'm currently available for new opportunities.
               </p>
             </div>
 
-            <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="p-3 rounded-lg bg-primary/10">
-                  <Mail className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Email</p>
-                  <a href="mailto:hs6860504@gmail.com" className="font-medium hover:text-primary transition-colors">
-                    hs6860504@gmail.com
-                  </a>
-                </div>
-              </div>
+            <div className={`grid md:grid-cols-5 gap-8 bg-background p-6 md:p-8 rounded-2xl border border-border/50 shadow-xl ${isVisible ? "animate-scale-in" : "opacity-0"}`} style={{ animationDelay: '200ms' }}>
+                
+                {/* Left side: Contact Info */}
+                <div className="md:col-span-2 space-y-6">
+                    <div>
+                        <h3 className="text-xl font-bold text-foreground mb-1.5">Get in touch</h3>
+                        <p className="text-muted-foreground text-sm leading-relaxed">Drop me a message and I'll get back to you as soon as possible.</p>
+                    </div>
 
-              <div className="flex items-center gap-4">
-                <div className="p-3 rounded-lg bg-primary/10">
-                  <Phone className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Phone</p>
-                  <a href="tel:9625363401" className="font-medium hover:text-primary transition-colors">
-                    9625363401
-                  </a>
-                </div>
-              </div>
+                    <div className="space-y-4">
+                        <a href="mailto:hs6860504@gmail.com" className="flex items-center gap-3.5 group">
+                            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                                <Mail size={18} />
+                            </div>
+                            <div>
+                                <p className="text-xs text-muted-foreground mb-0.5">Email</p>
+                                <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">hs6860504@gmail.com</p>
+                            </div>
+                        </a>
+                        
+                        <a href="tel:9625363401" className="flex items-center gap-3.5 group">
+                            <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
+                                <Phone size={18} />
+                            </div>
+                            <div>
+                                <p className="text-xs text-muted-foreground mb-0.5">Phone</p>
+                                <p className="text-sm font-medium text-foreground group-hover:text-accent transition-colors">+91 96253 63401</p>
+                            </div>
+                        </a>
+                    </div>
 
-              <div className="flex items-center gap-4">
-                <div className="p-3 rounded-lg bg-primary/10">
-                  <Linkedin className="w-6 h-6 text-primary" />
+                    <div className="pt-6 border-t border-border/50">
+                        <p className="text-xs text-muted-foreground mb-3 font-medium uppercase tracking-wider">Socials</p>
+                        <div className="flex gap-3">
+                            <a href="https://github.com/hrsh-sharma" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-muted hover:bg-primary/20 hover:text-primary transition-colors">
+                                <Github size={18} />
+                            </a>
+                            <a href="https://www.linkedin.com/in/harsh-sharma-282746274" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-muted hover:bg-accent/20 hover:text-accent transition-colors">
+                                <Linkedin size={18} />
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">LinkedIn</p>
-                  <a 
-                    href="https://www.linkedin.com/in/harsh-sharma-282746274" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium hover:text-primary transition-colors"
-                  >
-                    harsh-sharma-282746274
-                  </a>
+
+                {/* Right side: Form */}
+                <div className="md:col-span-3">
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <label htmlFor="name" className="text-sm font-medium text-foreground ml-1">Name</label>
+                                <Input
+                                    id="name"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleInputChange}
+                                    placeholder="John Doe"
+                                    className={`bg-muted/50 border-0 focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-0 h-12 rounded-xl ${errors.name ? 'ring-1 ring-destructive' : ''}`}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label htmlFor="email" className="text-sm font-medium text-foreground ml-1">Email</label>
+                                <Input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    placeholder="john@example.com"
+                                    className={`bg-muted/50 border-0 focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-0 h-12 rounded-xl ${errors.email ? 'ring-1 ring-destructive' : ''}`}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label htmlFor="message" className="text-sm font-medium text-foreground ml-1">Message</label>
+                            <Textarea
+                                id="message"
+                                name="message"
+                                value={formData.message}
+                                onChange={handleInputChange}
+                                placeholder="How can I help you?"
+                                rows={6}
+                                className={`bg-muted/50 border-0 resize-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-0 rounded-xl ${errors.message ? 'ring-1 ring-destructive' : ''}`}
+                            />
+                        </div>
+
+                        <Button
+                            type="submit"
+                            size="lg"
+                            className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-lg shadow-primary/25 rounded-xl h-12 text-base font-medium transition-all hover:scale-[1.02]"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? (
+                                <>
+                                    <div className="w-5 h-5 mr-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                                    Sending...
+                                </>
+                            ) : (
+                                <>
+                                    Send Message
+                                    <Send className="w-5 h-5 ml-2" />
+                                </>
+                            )}
+                        </Button>
+                    </form>
                 </div>
-              </div>
             </div>
-          </div>
-
-          {/* Contact Form */}
-          <form
-            onSubmit={handleSubmit}
-            className={`space-y-6 ${isVisible ? "animate-slide-in-right" : "opacity-0"}`}
-          >
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Name *
-                </label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  placeholder="Your name"
-                  className={`bg-card ${errors.name ? 'border-red-500' : ''}`}
-                />
-                {errors.name && (
-                  <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-                )}
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  Email *
-                </label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="your@email.com"
-                  className={`bg-card ${errors.email ? 'border-red-500' : ''}`}
-                />
-                {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                )}
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                Subject *
-              </label>
-              <Input
-                id="subject"
-                name="subject"
-                value={formData.subject}
-                onChange={handleInputChange}
-                placeholder="What's this about?"
-                className={`bg-card ${errors.subject ? 'border-red-500' : ''}`}
-              />
-              {errors.subject && (
-                <p className="text-red-500 text-sm mt-1">{errors.subject}</p>
-              )}
-            </div>
-
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium mb-2">
-                Message *
-              </label>
-              <Textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                placeholder="Tell me about your project..."
-                rows={5}
-                className={`bg-card resize-none ${errors.message ? 'border-red-500' : ''}`}
-              />
-              {errors.message && (
-                <p className="text-red-500 text-sm mt-1">{errors.message}</p>
-              )}
-              <p className="text-sm text-muted-foreground mt-1">
-                {formData.message.length}/1000 characters
-              </p>
-            </div>
-
-            <Button
-              type="submit"
-              size="lg"
-              className="w-full sm:w-auto"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? (
-                <>
-                  <div className="w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Sending...
-                </>
-              ) : (
-                <>
-                  <Send className="w-4 h-4 mr-2" />
-                  Send Message
-                </>
-              )}
-            </Button>
-          </form>
         </div>
-      </div>
-    </section>
-  );
-};
+     </section>
+  )
+}
 
 export default ContactSection;

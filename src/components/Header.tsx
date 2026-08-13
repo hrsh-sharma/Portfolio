@@ -1,12 +1,13 @@
     import { useState, useEffect } from "react";
 import { Menu, X, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import cvFile from "@/assets/Harsh Sharma.pdf";
+import cvFile from "@/assets/Harsh_Sharma_Resume.docx";
 
 const navLinks = [
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
+    { name: "Experience", href: "#experience" },
     { name: "Contact", href: "#contact" },
 ];
 
@@ -57,7 +58,7 @@ const Header = () => {
     const handleDownloadCV = () => {
         const link = document.createElement('a');
         link.href = cvFile;
-        link.download = 'Harsh_Sharma_CV.pdf';
+        link.download = 'Harsh_Sharma_Resume.docx';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
